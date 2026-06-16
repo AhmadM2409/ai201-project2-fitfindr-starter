@@ -39,12 +39,43 @@ def handle_query(user_query: str, wardrobe_choice: str) -> tuple[str, str, str]:
         3. Call run_agent() with the query and selected wardrobe.
         4. If session["error"] is set, return the error in the first panel
            and empty strings for the other two.
-        5. Otherwise, format session["selected_item"] into a readable listing_text
+    5. Otherwise, format session["selected_item"] into a readable listing_text
            string and return it along with session["outfit_suggestion"] and
            session["fit_card"].
     """
-    # TODO: implement this function
-    return "Agent not yet implemented.", "", ""
+    if not user_query or not user_query.strip():
+        return "Please enter what you are looking for before searching.", "", ""
+
+    wardrobe = (
+        get_example_wardrobe()
+        if wardrobe_choice == "Example wardrobe"
+        else get_empty_wardrobe()
+    )
+
+    try:
+        session = run_agent(user_query.strip(), wardrobe)
+        if session.get("error"):
+            return session["error"], "", ""
+
+        item = session.get("selected_item") or {}
+        listing_text = (
+            f"Title: {item.get('title', 'Unknown item')}\n"
+            f"Price: ${item.get('price', 'N/A')}\n"
+            f"Platform: {item.get('platform', 'Unknown')}\n"
+            f"Size: {item.get('size', 'Unknown')}\n"
+            f"Condition: {item.get('condition', 'Unknown')}"
+        )
+        return (
+            listing_text,
+            session.get("outfit_suggestion") or "",
+            session.get("fit_card") or "",
+        )
+    except Exception:
+        return (
+            "Something went wrong while preparing your results. Please try again.",
+            "",
+            "",
+        )
 
 
 # ── interface ─────────────────────────────────────────────────────────────────
