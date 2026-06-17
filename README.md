@@ -205,12 +205,6 @@ Codex was used in a staged way rather than as a one-shot code generator.
 2. Codex received the planning-loop diagram and session-state specification, implemented `agent.py`, and the resulting behavior was verified with mocked state-passing and early-return tests.
 3. Generated code was not accepted automatically. It was reviewed and corrected through tests, including fixes for parser details and prompt/fallback behavior.
 
-## 12. Demo Instructions
+## 12. Demo Video
 
-The demo shows three things:
-
-1. The complete three-tool workflow from search to outfit to fit card.
-2. Session state passing between the agent and the tools.
-3. The no-results failure path, where the agent stops early and returns a readable error.
-
-To demo it, run `python app.py`, submit a query such as `vintage graphic tee under $30, size M`, and then try a no-results query such as `designer ballgown size XXS under $5`.
+Video Link : https://drive.google.com/file/d/1_ipee_1-OvdKCIp634Jtidj_JUaWaimH/view?usp=sharing
